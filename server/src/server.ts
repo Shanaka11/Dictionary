@@ -16,16 +16,16 @@ app.use(cors({
     origin: 'http://localhost:5173'
 }))
 
-app.get('/', (req, res) => {
-    res.sendStatus(200)
-})
+// app.get('/', (req, res) => {
+//     res.sendStatus(200)
+// })
 
 app.use('/api/v1', router)
 
 // Serve Frontend
 if(process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/build')))
-    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../', 'client', 'build', 'index.html')))
+    app.use(express.static(path.join(__dirname, '../../client/dist')))
+    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../', '../', 'client', 'dist', 'index.html')))
 }
 
 app.listen( PORT , async () => {
