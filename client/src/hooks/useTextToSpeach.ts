@@ -12,7 +12,9 @@ function useSpeech(options: { rate: number; pitch: number; volume: number; }) {
 
     function speak(text:string) {
         const voice = voices.length > 0 ? voices[0] : window.speechSynthesis.getVoices()[0]
-
+        if(!voices[0]){
+            setVoices([voice])
+        }
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.voice = voice;
         utterance.rate = options.rate;
