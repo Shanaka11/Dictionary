@@ -2,12 +2,12 @@ import axios from "axios"
 import { IWord } from "../types/IWord"
 
 const getWords = async () => {
-    return axios.get<IWord[]>(`http://localhost:5000/api/v1/word`)
+    return axios.get<IWord[]>(`${process.env.PORT}word`)
 }
 
 const addWords = async (data:IWord) => {
     return axios.post<IWord>(
-        'http://localhost:5000/api/v1/word',
+        `${process.env.PORT}}word`,
         data
     )
 }
