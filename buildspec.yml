@@ -1,0 +1,27 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo Installing Server dependencies...
+      - cd server
+      - yarn install
+      - echo Installing Client dependencies...
+      - cd ..
+      - cd client
+      - yarn install
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Compiling the client dist folder
+      - yarn build
+      - cd ..
+      - cd server
+      - echo Compiling the client dist folder
+      - yarn build
+  post_build:
+    commands:
+      - echo Build completed on `date`
+# Include only the files required for your application to run.
+artifacts:
+  files:
+    - '**/*'
