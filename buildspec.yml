@@ -29,5 +29,4 @@ artifacts:
   files:
     - 'client/dist/**/*'
     - 'server/dist/**/*'
-    - 'server/node_modules/**/*'
     - 'package.json'
