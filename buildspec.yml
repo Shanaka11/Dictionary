@@ -29,4 +29,5 @@ artifacts:
   files:
     - 'client/dist/**/*'
     - 'server/dist/**/*'
+    - 'server/package.json'
     - 'package.json'
