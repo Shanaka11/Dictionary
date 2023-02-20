@@ -33,8 +33,8 @@ app.listen( PORT , async () => {
 
     const dbUri = process.env.DB_URI
     try {
-        // if(!dbUri) throw new Error()
-        // await mongoose.connect(dbUri)
+        if(!dbUri) throw new Error()
+        await mongoose.connect(dbUri)
         console.log('DB Connected')
     }catch (error) {
         console.log(error)
