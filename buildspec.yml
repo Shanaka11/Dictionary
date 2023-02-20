@@ -31,3 +31,4 @@ artifacts:
     - 'server/dist/**/*'
     - 'server/package.json'
     - 'package.json'
+    - '.ebextensions/*'
