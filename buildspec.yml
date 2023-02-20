@@ -13,15 +13,16 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Compiling the client dist folder
-      - npm build
+      - npm run build
       - cd ..
       - cd server
       - echo Compiling the client dist folder
-      - npm build
+      - npm run build
   post_build:
     commands:
       - echo Build completed on `date`
 # Include only the files required for your application to run.
 artifacts:
   files:
-    - '**/*'
+    - 'client/dist/*'
+    - 'server/dist/*'
