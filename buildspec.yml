@@ -4,20 +4,20 @@ phases:
     commands:
       - echo Installing Server dependencies...
       - cd server
-      - yarn install
+      - npm install
       - echo Installing Client dependencies...
       - cd ..
       - cd client
-      - yarn install
+      - npm install
   build:
     commands:
       - echo Build started on `date`
       - echo Compiling the client dist folder
-      - yarn build
+      - npm build
       - cd ..
       - cd server
       - echo Compiling the client dist folder
-      - yarn build
+      - npm build
   post_build:
     commands:
       - echo Build completed on `date`
