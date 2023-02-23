@@ -4,12 +4,12 @@ import { ToastContainer, ToastsContainer } from "./Toast.styled";
 export type ToastType = 'success' | 'info' | 'warning' | 'error';
 
 export interface ToastProps {
-  id: number;
+  id?: number;
   type: ToastType;
   message: string;
   duration?: number;
   position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
-  handleClose: (id:number) => void
+  handleClose?: (id:number) => void
 }
 
 const Toast:React.FC<ToastProps> = ({
@@ -23,7 +23,7 @@ const Toast:React.FC<ToastProps> = ({
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      handleClose(id);
+      if(id && handleClose) handleClose(id);
     }, duration);
 
     return () => {
@@ -37,7 +37,7 @@ const Toast:React.FC<ToastProps> = ({
         <h1>Error</h1>
         <p>{message}</p>
       </div>
-      <button onClick={(event) => handleClose(id)}>X</button>
+      <button onClick={(event) => {if(id && handleClose) handleClose(id)}}>X</button>
     </ToastContainer>
     )
 }

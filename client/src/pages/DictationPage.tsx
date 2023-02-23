@@ -71,6 +71,10 @@ const DictationPage = () => {
             setInWord("")
             setNextIndex()
             setWordError(false)
+            showToast({
+                message: "Correct spellings",
+                type: 'success'
+            })
         }
     }
 
