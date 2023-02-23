@@ -13,6 +13,7 @@ import {
 import { useSpeech } from '../hooks'
 import { wordApi } from '../api'
 import { FormEvent, useEffect, useState } from 'react'
+import { useToast } from '../components/Toast'
 
 const DictationPage = () => {
 
@@ -24,6 +25,9 @@ const DictationPage = () => {
         'words',
         wordApi.getWords
     )
+
+    const showToast = useToast();
+  
 
     const [index, setIndex] = useState(0)
     const [inWord, setInWord] = useState("")
@@ -59,10 +63,18 @@ const DictationPage = () => {
         event.preventDefault()
         if(data?.data[index].word.toLowerCase() !== inWord.toLowerCase()){
             setWordError(true)
+            showToast({
+                message: "Incorrect spellings",
+                type: 'error'
+            })
         }else{
             setInWord("")
             setNextIndex()
             setWordError(false)
+            showToast({
+                message: "Correct spellings",
+                type: 'success'
+            })
         }
     }
 
