@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { ToastContainer, ToastsContainer } from "./Toast.styled";
 
 export type ToastType = 'success' | 'info' | 'warning' | 'error';

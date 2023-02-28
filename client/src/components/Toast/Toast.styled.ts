@@ -11,7 +11,7 @@ export const ToastsContainer = styled.div({
     display: "flex",
     flexDirection: "column",
     position: "fixed",
-    minWidth: 250,
+    width: 250,
     zIndex: 10000,
     // Position Top Right
     top: measurements.marginBase * 2,
@@ -20,7 +20,7 @@ export const ToastsContainer = styled.div({
 export const ToastContainer = styled.div<ToastContainerProps>({
     padding: measurements.marginBase * 2,
     color: 'white',
-    minWidth: 250,
+    width: 250,
     display: 'flex',
     justifyContent: "space-between",
     cursor: 'default',

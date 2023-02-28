@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import express from 'express'
 import router from './routes'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 import * as dotenv from "dotenv";
 
 dotenv.config();
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 3000
 const app = express()
 
 app.use(express.json())
+app.use(cookieParser())
 app.use(cors({
     origin: 'http://localhost:5173'
 }))
@@ -24,8 +26,8 @@ app.use('/api/v1', router)
 
 // Serve Frontend
 // if(process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../../client/dist')))
-    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../', '../', 'client', 'dist', 'index.html')))
+    // app.use(express.static(path.join(__dirname, '../../client/dist')))
+    // app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../', '../', 'client', 'dist', 'index.html')))
 //}
 
 app.listen( PORT , async () => {

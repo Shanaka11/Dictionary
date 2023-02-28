@@ -1,4 +1,6 @@
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { AuthProvider } from './auth'
+import Login from './auth/Login'
 import { Header } from './components/Header'
 import { ToastProvider } from './components/Toast'
 import { DictationPage } from "./pages"
@@ -9,10 +11,13 @@ function App() {
 
   return (
     <ToastProvider>
-      <QueryClientProvider client={queryClient}>
-          <Header />
-          <DictationPage />    
-      </QueryClientProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+            {/* <Header />
+            <DictationPage />     */}
+            <Login />
+        </QueryClientProvider>
+      </AuthProvider>
     </ToastProvider>
   )
 }
