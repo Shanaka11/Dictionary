@@ -1,3 +1,4 @@
+import { Navigate, useLocation } from "react-router-dom"
 import { useAuth } from "./authContext"
 
 
@@ -8,6 +9,7 @@ interface ProtectedRoutesProps {
 const ProtectedRoute:React.FC<ProtectedRoutesProps> = ({ children }) => {
 
     const {currentUser} = useAuth()
+    const location = useLocation()
 
     if(localStorage.getItem('logged') || currentUser){
         return (
@@ -17,7 +19,7 @@ const ProtectedRoute:React.FC<ProtectedRoutesProps> = ({ children }) => {
         )
     }
 
-    return <h1>Does not have permission</h1>
+    return <Navigate to="/" state={{ from: location }} replace />
 }
 
 export default ProtectedRoute

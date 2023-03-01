@@ -16,7 +16,6 @@ const Login:React.FC<loginDialogProps> = ({ show, onClose }) => {
     const [ password, setPassword ] = useState<string>("")
 
     const {
-        currentUser,
         signupWithEmailPassword,
         loading,
         error

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '..'
 import { useAuth } from '../../auth'
 import Login from '../../auth/Login'
@@ -7,6 +8,9 @@ import { HeaderBase, HeaderContainer, HeaderLogoText } from './Header.styled'
 const Header = () => {
 
   const [openLogin, setOpenLogin] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const {
     currentUser,
     signOutUser
@@ -14,7 +18,9 @@ const Header = () => {
 
   useEffect(() => {
     if(currentUser) {
+      const from = location.state.from.pathname || '/'
       setOpenLogin(false)
+      navigate(from, {replace: true})
     }
   }, [currentUser])
   
