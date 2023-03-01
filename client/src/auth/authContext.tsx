@@ -6,6 +6,7 @@ import {
     User 
 } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useToast } from "../components/Toast";
 import auth from "./auth";
 
 interface AuthProviderProps {
@@ -33,11 +34,19 @@ export const AuthProvider:React.FC<AuthProviderProps> = ( { children }) => {
     const [ loading, setLoading ] = useState(false)
     const [ error, setError ] = useState("")
 
+    const showToast = useToast()
+
     const signupWithEmailPassword = async (email:string, password:string) => {
         setLoading(true)
         try{
             const userCredentials = await signInWithEmailAndPassword(auth, email, password)
-            console.log(userCredentials)
+            setCurrentUser(userCredentials.user)
+            localStorage.setItem("logged", "true")
+               
+            showToast({
+                type: 'success',
+                message: `${userCredentials.user.email} logged in successfully`
+            })
             setLoading(false)
         }catch (error:any){
             setError(error.message)
@@ -48,13 +57,13 @@ export const AuthProvider:React.FC<AuthProviderProps> = ( { children }) => {
     const signOutUser = async () => {
         setLoading(true)
         await signOut(auth)
+        localStorage.removeItem("logged")
         setLoading(false)
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user)
-            console.log(user)
         })
         return unsubscribe
     }, [])

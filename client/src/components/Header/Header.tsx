@@ -1,20 +1,42 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '..'
-import AddWordDialog from '../AddWord/AddWordDialog'
+import { useAuth } from '../../auth'
+import Login from '../../auth/Login'
 import { HeaderBase, HeaderContainer, HeaderLogoText } from './Header.styled'
 
 const Header = () => {
 
-  const [addWord, setAddWord] = useState(false)
+  const [openLogin, setOpenLogin] = useState(false)
+  const {
+    currentUser,
+    signOutUser
+  } = useAuth()
 
-  const handleAddWordsOnClick = ( event: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
-    setAddWord(true)
+  useEffect(() => {
+    if(currentUser) {
+      setOpenLogin(false)
+    }
+  }, [currentUser])
+  
+  const handleLoginOnClick = ( event: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
+    setOpenLogin(true)
+  }
+
+  const handleLogoutOnClick = ( event: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
+    signOutUser()
   }
 
   return (
     <HeaderBase>
       <HeaderContainer>
-        <AddWordDialog
+        {
+          <Login 
+            show={openLogin} 
+            onClose={() => setOpenLogin(false)}
+          />
+        }
+        <HeaderLogoText>Dictation</HeaderLogoText>
+        {/* <AddWordDialog
           show={addWord}
           onClose={() =>  setAddWord(false)}
         />
@@ -23,7 +45,23 @@ const Header = () => {
           onClick={handleAddWordsOnClick}
         >
           Add Words
-        </Button>
+        </Button> */}
+        {
+          localStorage.getItem("logged") ?
+          (
+            <Button
+              onClick={handleLogoutOnClick}
+            >
+              Logout { currentUser?.email }
+            </Button>
+          ) : (
+            <Button
+              onClick={handleLoginOnClick}
+            >
+              Login
+            </Button>
+          )
+        }
       </HeaderContainer>
     </HeaderBase>
   )

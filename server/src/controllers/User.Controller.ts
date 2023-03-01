@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import { userUseCases } from "../useCases"
 import { errorResponse } from "../utils";
-import {
-    login
-} from "../auth"
 
 
 // const createWordController = async (
@@ -60,7 +57,7 @@ const loginUser = async (
 ) => {
     // Login is only handled by auth because of that there are no interations with the database so we do not need usecases
     try{
-        await login( req.body.username, req.body.password )
+        // await login( req.body.username, req.body.password )
         res.status(200).send({message: "Logged in successfully"})
     } catch (error:any){
         if(error.code){
