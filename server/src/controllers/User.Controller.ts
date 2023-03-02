@@ -1,6 +1,7 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { userUseCases } from "../useCases"
 import { errorResponse } from "../utils";
+import { Request } from '../auth'
 
 
 // const createWordController = async (
