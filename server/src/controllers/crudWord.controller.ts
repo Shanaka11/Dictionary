@@ -1,7 +1,8 @@
-import { NextFunction, Request, Response } from "express";
+import { Response } from "express";
 import { IWord } from "../entities";
 import { wordUseCases } from "../useCases"
 import { errorResponse } from "../utils";
+import { Request } from '../auth'
 
 
 const createWordController = async (
