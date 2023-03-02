@@ -55,7 +55,7 @@ const Header = () => {
           Add Words
         </Button> */}
         {
-          localStorage.getItem("logged") ?
+          localStorage.getItem("authToken") ?
           (
             <Button
               onClick={handleLogoutOnClick}

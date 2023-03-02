@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Button, TextField } from "../components"
-import { DialogButtonContainer } from "../components/AddWord/AddWordDialog.styled"
 import { AuthButtonContainer } from "./Auth.styled"
 import { useAuth } from "./authContext"
 import { Content } from "./Login"

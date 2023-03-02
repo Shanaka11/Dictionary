@@ -11,7 +11,7 @@ const ProtectedRoute:React.FC<ProtectedRoutesProps> = ({ children }) => {
     const {currentUser} = useAuth()
     const location = useLocation()
 
-    if(localStorage.getItem('logged') || currentUser){
+    if(localStorage.getItem('authToken') || currentUser){
         return (
             <>
                 { children }

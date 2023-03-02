@@ -40,9 +40,11 @@ export const AuthProvider:React.FC<AuthProviderProps> = ( { children }) => {
 
     const showToast = useToast()
 
-    const loginUser = (userCredentials: UserCredential) => {
+    const loginUser = async (userCredentials: UserCredential) => {
         setCurrentUser(userCredentials.user)
-        localStorage.setItem("logged", "true")
+        const token = await userCredentials.user.getIdToken()
+
+        localStorage.setItem("authToken", token)
            
         showToast({
             type: 'success',
@@ -78,13 +80,18 @@ export const AuthProvider:React.FC<AuthProviderProps> = ( { children }) => {
     const signOutUser = async () => {
         setLoading(true)
         await signOut(auth)
-        localStorage.removeItem("logged")
+        localStorage.removeItem("authToken")
         setLoading(false)
     }
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             setCurrentUser(user)
+            if(user){
+                const token = await user?.getIdToken()
+                const preToken = localStorage.getItem(token)
+                if(token !== preToken) localStorage.setItem("authToken", token)
+            }
         })
         return unsubscribe
     }, [])
