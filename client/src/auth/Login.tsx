@@ -4,20 +4,21 @@ import { DialogButtonContainer } from "../components/AddWord/AddWordDialog.style
 import { Dialog } from "../components/Dialog"
 import { useToast } from "../components/Toast"
 import { useAuth } from "./authContext"
+import LoginForm from "./LoginForm"
+import RegisterForm from "./RegisterForm"
 
 interface loginDialogProps {
     show: boolean,
     onClose: () => void
 }
 
+export type Content = 'LOGIN' | 'REGISTER'
+
 const Login:React.FC<loginDialogProps> = ({ show, onClose }) => {
 
-    const [ email, setEmail ] = useState<string>("")
-    const [ password, setPassword ] = useState<string>("")
+    const [ content, setContent ] = useState<Content>('LOGIN')
 
     const {
-        signupWithEmailPassword,
-        loading,
         error
     } = useAuth()
 
@@ -33,70 +34,28 @@ const Login:React.FC<loginDialogProps> = ({ show, onClose }) => {
         }
     }, [error])
 
-    const handleFormSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault()
-        signupWithEmailPassword(email, password)
-    }
-
     return  (
-            <Dialog
-                show={show}
-                onClose={onClose}
-                title="Login"
-            >
-                <form>
-                    <TextField 
-                        name='email'
-                        type="email"
-                        placeholder='Email'
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+        <Dialog
+            show={show}
+            onClose={onClose}
+            title="Login"
+        >
+            {
+                content === 'LOGIN' ?
+                (
+                    <LoginForm 
+                        onClose={onClose}
+                        changeContent={setContent}
                     />
-                    <TextField 
-                        name='password'
-                        type="password"
-                        placeholder='Password'
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
+                ):(
+                    <RegisterForm 
+                        onClose={onClose}
+                        changeContent={setContent}
                     />
-                    <DialogButtonContainer>
-                        <Button
-                            type='submit'
-                            onClick={ handleFormSubmit }
-                            disabled={loading}
-                        >
-                            Login
-                        </Button>
-                        <Button
-                            type='button'
-                            endButton={true}
-                            btnStyle="letter"
-                            onClick={onClose}
-                            disabled={loading}
-                        >
-                            Cancel
-                        </Button>
-                    </DialogButtonContainer>
-                </form>
-            </Dialog>
+                )
+            }
+        </Dialog>
     )
-    // return (
-    //     <div>
-    //         { currentUser && <p>{currentUser.email}</p>}
-    //         { loading && <h1>Loading</h1> }
-
-    //         <button
-    //             onClick={handleLoginWithEmailPassword}
-    //         >
-    //             Login
-    //         </button>
-    //         <button
-    //             onClick={handleLogout}
-    //         >
-    //             Logout
-    //         </button>
-    //     </div>
-    // )
 }
 
 export default Login

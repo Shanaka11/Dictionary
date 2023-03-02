@@ -2,8 +2,10 @@ import { async } from "@firebase/util";
 import { 
     onAuthStateChanged, 
     signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
     signOut,
-    User 
+    User, 
+    UserCredential
 } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useToast } from "../components/Toast";
@@ -18,6 +20,7 @@ interface AuthContextProps {
     loading: boolean,
     error: string,
     signupWithEmailPassword: (email: string, password: string) => null | Promise<void>,
+    registerWithEmailPassword: (email: string, password: string) => null | Promise<void>
     signOutUser: () => void
 }
 
@@ -26,6 +29,7 @@ export const AuthContext = createContext<AuthContextProps>({
     loading: false,
     error: "",
     signupWithEmailPassword: (email: string, password: string) => null,
+    registerWithEmailPassword: (email: string, password: string) => null,
     signOutUser: () => Promise<void>
 });
 
@@ -36,19 +40,36 @@ export const AuthProvider:React.FC<AuthProviderProps> = ( { children }) => {
 
     const showToast = useToast()
 
+    const loginUser = (userCredentials: UserCredential) => {
+        setCurrentUser(userCredentials.user)
+        localStorage.setItem("logged", "true")
+           
+        showToast({
+            type: 'success',
+            message: `${userCredentials.user.email} logged in successfully`
+        })
+    }
+
     const signupWithEmailPassword = async (email:string, password:string) => {
         setLoading(true)
         try{
             const userCredentials = await signInWithEmailAndPassword(auth, email, password)
-            setCurrentUser(userCredentials.user)
-            localStorage.setItem("logged", "true")
-               
-            showToast({
-                type: 'success',
-                message: `${userCredentials.user.email} logged in successfully`
-            })
+            loginUser(userCredentials)
+            setError("")
             setLoading(false)
         }catch (error:any){
+            setError(error.message)
+            setLoading(false)
+        }
+    }
+
+    const registerWithEmailPassword = async (email:string, password:string)  => {
+        setLoading(true)
+        try{
+            const userCredentials = await createUserWithEmailAndPassword(auth, email, password)   
+            loginUser(userCredentials)
+            setLoading(false)
+        }catch (error: any){
             setError(error.message)
             setLoading(false)
         }
@@ -73,6 +94,7 @@ export const AuthProvider:React.FC<AuthProviderProps> = ( { children }) => {
         loading,
         error,
         signupWithEmailPassword,
+        registerWithEmailPassword,
         signOutUser
     }
 
