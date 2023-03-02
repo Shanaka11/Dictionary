@@ -18,9 +18,11 @@ const Header = () => {
 
   useEffect(() => {
     if(currentUser) {
-      const from = location.state.from.pathname || '/'
+      const from = location.state?.from?.pathname
       setOpenLogin(false)
-      navigate(from, {replace: true})
+      if(from){
+        navigate(from, {replace: true})
+      }
     }
   }, [currentUser])
   

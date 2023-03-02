@@ -6,6 +6,8 @@ const TextField = styled.input<{error?: boolean}>({
     width: '100%',
     borderRadius: 5,
     border: '1px solid #e6e6e6',
+    marginTop: measurements.marginBase,
+    marginBottom: measurements.marginBase,
 
     '&:focus' : {
         outline: `1px solid ${colors.primary}`

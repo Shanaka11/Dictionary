@@ -42,7 +42,7 @@ const Login:React.FC<loginDialogProps> = ({ show, onClose }) => {
             <Dialog
                 show={show}
                 onClose={onClose}
-                title="Add a new word to the word list"
+                title="Login"
             >
                 <form>
                     <TextField 
@@ -65,7 +65,7 @@ const Login:React.FC<loginDialogProps> = ({ show, onClose }) => {
                             onClick={ handleFormSubmit }
                             disabled={loading}
                         >
-                            Add
+                            Login
                         </Button>
                         <Button
                             type='button'
