@@ -34,7 +34,7 @@ const Toast:React.FC<ToastProps> = ({
   return (
     <ToastContainer type={type} position={position}>
       <div>
-        <h1>Error</h1>
+        <h1>{type === 'error' ? "Error" : type === "info" ? "Information" : type === "success" ? "Success" : "Warning"}</h1>
         <p>{message}</p>
       </div>
       <button onClick={(event) => {if(id && handleClose) handleClose(id)}}>X</button>
