@@ -6,7 +6,7 @@
   "author": "shanaka11 <shanakaabeysinghe@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "yarn --cwd server build && yarn --cwd client build",
+    "build": "npm run build --prefix server && npm run build --prefix client",
     "start": "node server/dist/server.js"
   },
   "devDependencies": {
