@@ -1,4 +1,6 @@
 import { IWord, Word } from "../entities";
+//@ts-ignore
+import { validateWord } from "../utils/SpellChecker/spellCheck"
 
 const add = async ( word:IWord ) => {
     try {
@@ -12,6 +14,14 @@ const add = async ( word:IWord ) => {
         if(checkExist) {
             throw new Error('A word with the same letters already exist')
         }
+
+        // Validate spellings
+        const spellCheck = validateWord(word.word)
+    
+        if(!spellCheck.isValid){
+            throw new Error('Incorrect spellings')
+        }
+
         return await Word.create(word)
     } catch (error){
         throw error
