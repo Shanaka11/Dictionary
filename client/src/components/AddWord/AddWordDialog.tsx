@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMutation } from 'react-query'
 import { Button } from '..'
 import { Dialog } from '../Dialog'
 import TextField from '../Textfield.styled'
 import { DialogButtonContainer } from './AddWordDialog.styled'
 import { wordApi } from '../../api'
+import { useToast } from '../Toast'
 
 interface AddWordDialogProps {
     show: boolean,
@@ -18,8 +19,10 @@ const AddWordDialog:React.FC<AddWordDialogProps> = ({
 
     const [newWord, setNewWord] = useState("")
 
+    const showToast = useToast()
+
     const {
-        data,
+        error,
         isLoading,
         mutate: wordMutate
     } = useMutation(
@@ -27,9 +30,23 @@ const AddWordDialog:React.FC<AddWordDialogProps> = ({
         {
             onSuccess: (data) => {
                 setNewWord("")
+                showToast({
+                    type: "success",
+                    message: `${data.data.word} added`
+                })
             }
         }
     )
+
+    useEffect(() => {
+        if(error){
+            showToast({
+                type: 'error',
+                //@ts-ignore
+                message: error.message
+            })
+        }
+    }, [error])
 
     const handleFormSubmit = ( event: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
         event.preventDefault()

@@ -3,7 +3,7 @@ const measurements = {
     marginBase: 5,
     containerMainWidth: '80%',
     cellWidth: 200,
-    cellHeight: 60
+    cellHeight: 40
 }
 
 export default measurements
