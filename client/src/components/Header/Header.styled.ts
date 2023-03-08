@@ -12,7 +12,7 @@ export const HeaderBase = styled.div({
 })
 
 export const HeaderContainer = styled.div({
-    width: measurements.lengthLg,
+    width: measurements.containerMainWidth,
     display: "flex",
     justifyContent: 'space-between',
     alignItems: 'center',

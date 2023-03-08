@@ -10,6 +10,7 @@ import { ProtectedRoute } from './auth'
 import { Header } from './components/Header'
 import { DictationPage } from "./pages"
 import HomePage from './pages/HomePage'
+import WordsPage from './pages/WordsPage'
 
 const queryClient = new QueryClient()
 
@@ -28,6 +29,14 @@ function App() {
               <DictationPage />
             </ProtectedRoute>
           } 
+        />
+        <Route
+          path='/words'
+          element={
+            <ProtectedRoute>
+              <WordsPage />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </QueryClientProvider>

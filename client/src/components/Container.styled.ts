@@ -3,7 +3,7 @@ import { breakpoints, measurements } from "../style";
 
 
 const Container = styled.div({
-    width: measurements.lengthLg,
+    width: measurements.containerMainWidth,
     display: 'grid',
 
     '@media only screen and (max-width: 800px)' : {
