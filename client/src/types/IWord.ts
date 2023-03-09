@@ -1,5 +1,6 @@
 export interface IWord {
     _id?: string,
     word: string,
-    __v?: number   
+    __v?: number,
+    author?: string   
 }
