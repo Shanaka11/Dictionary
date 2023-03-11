@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useMutation } from 'react-query'
-import { Button } from '..'
-import { Dialog } from '../Dialog'
-import TextField from '../Textfield.styled'
+import { Button } from '../../components'
+import { Dialog } from '../../components/Dialog'
+import TextField from '../../components/Textfield.styled'
 import { DialogButtonContainer } from './AddWordDialog.styled'
 import { wordApi } from '../../api'
-import { useToast } from '../Toast'
+import { useToast } from '../../components/Toast'
 
 interface AddWordDialogProps {
     show: boolean,

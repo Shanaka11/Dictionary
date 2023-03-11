@@ -2,15 +2,16 @@ import { useEffect, useState } from "react"
 import { useQuery } from "react-query"
 import { wordApi } from "../api"
 import { Button, Container, ContainerBase } from "../components"
-import AddWordDialog from "../components/AddWord/AddWordDialog"
+import { ActionContainer } from "../components/Container.styled"
 import { Table } from "../components/Table"
 import { useToast } from "../components/Toast"
+import { useWord } from "../word"
 
 type Props = {}
 
 const WordsPage = (props: Props) => {
 
-    const [ addWord, setAddWord ] = useState(false)
+    // const [ addWord, setAddWord ] = useState(false)
 
     const {
         isLoading,
@@ -24,6 +25,10 @@ const WordsPage = (props: Props) => {
 
     const showToast = useToast()
 
+    const {
+        addWord
+    } = useWord(refetch)
+
     useEffect(() => {
         if(error){
             showToast({
@@ -35,24 +40,22 @@ const WordsPage = (props: Props) => {
     }, [error])
 
     const handleAddWordOnClose = () => {
-        setAddWord(false)
+        // setAddWord(false)
         refetch()
     }
 
     return (
         <ContainerBase>
-            <AddWordDialog
-                show={addWord}
-                onClose={handleAddWordOnClose}
-            />
             <Container>
                 <h1>Words</h1>
                 <p>List of all words in the database, click on a word to add it to your custom lists</p>
-                <Button
-                    onClick={() => setAddWord(true)}
-                >
-                    Add Words
-                </Button>
+                <ActionContainer>
+                    <Button
+                        onClick={() => addWord()}
+                    >
+                        Add Words
+                    </Button>
+                </ActionContainer>
                 <Table  data={data?.data || []}/>
             </Container>
         </ContainerBase>

@@ -2,15 +2,28 @@ import { Cell } from './Table.styled'
 
 interface TableCellProps {
     id?: string
-    text: string
+    text: string,
+    cellOnClick: (id: string) => void
 }
 
 const TableCell:React.FC<TableCellProps> = ({
     id, 
-    text 
+    text,
+    cellOnClick
 }) => {
+
+    const handleCellOnClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if(id){
+            cellOnClick(id)
+        }
+    }
+
     return (
-        <Cell>{text}</Cell>
+        <Cell
+            onClick={handleCellOnClick}
+        >
+            {text}
+        </Cell>
     )
 }
 

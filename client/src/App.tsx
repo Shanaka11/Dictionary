@@ -11,6 +11,7 @@ import { Header } from './components/Header'
 import { DictationPage } from "./pages"
 import HomePage from './pages/HomePage'
 import WordsPage from './pages/WordsPage'
+import { WordProvider } from './word'
 
 const queryClient = new QueryClient()
 
@@ -34,7 +35,9 @@ function App() {
           path='/words'
           element={
             <ProtectedRoute>
-              <WordsPage />
+              <WordProvider>
+                <WordsPage />
+              </WordProvider>
             </ProtectedRoute>
           }
         />

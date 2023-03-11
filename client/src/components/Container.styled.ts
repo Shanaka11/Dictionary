@@ -18,4 +18,10 @@ export const ContainerBase = styled.div({
     display: "flex",
     justifyContent: 'center'
 })
+
+export const ActionContainer = styled.div({
+    width: '100%',
+    marginBottom: measurements.marginBase * 2
+})
+
 export default Container
