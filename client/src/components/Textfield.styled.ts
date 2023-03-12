@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { colors, measurements } from "../style";
 
-const TextField = styled.input<{error?: boolean}>({
+const TextField = styled.input<{error?: boolean, flex?: boolean}>({
     padding: measurements.marginBase * 2,
     width: '100%',
     borderRadius: 5,
@@ -14,6 +14,11 @@ const TextField = styled.input<{error?: boolean}>({
     }
 }, ({ error }) => {
     if(error) return { borderColor: 'red'}
+}, ({ flex }) => {
+    if (flex) return { 
+        width: '50%',
+        flexGrow: 1
+    }
 })
 
 export default TextField

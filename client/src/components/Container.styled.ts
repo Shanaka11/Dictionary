@@ -20,6 +20,7 @@ export const ContainerBase = styled.div({
 })
 
 export const ActionContainer = styled.div({
+    display: 'flex',
     width: '100%',
     marginBottom: measurements.marginBase * 2
 })
