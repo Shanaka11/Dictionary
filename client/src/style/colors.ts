@@ -5,6 +5,7 @@ const colors = {
     textPrimary: '#666666',
     textSecondary: '#ededed',
     background: '#fffcf5',
+    disabled: '#dedede',
     toast: {
         error: {
             primary: "#dc3545",
