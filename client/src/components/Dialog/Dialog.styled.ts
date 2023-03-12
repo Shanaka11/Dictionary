@@ -22,7 +22,11 @@ export const DialogContainer = styled.div<{ open?:boolean }>({
     padding: measurements.marginBase * 2,
     position: 'absolute',
     top: '-100%',
-    transition: 'top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94)'
+    transition: 'top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94)',
+
+    '@media only screen and (max-width: 800px)' : {
+        width: '90%'
+    }
 },
 ({ open }) => {
     if (open) return { top: 0 }

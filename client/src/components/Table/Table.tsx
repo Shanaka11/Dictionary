@@ -29,7 +29,7 @@ const Table:React.FC<TableProps> = ({ data }) => {
                             <TableCellAction 
                                 key={word._id}
                                 id={word._id}
-                                text={word.word}
+                                word={word}
                                 cellOnClick={handleCellOnClick}
                             />
                         )

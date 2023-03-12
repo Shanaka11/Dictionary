@@ -6,18 +6,21 @@ import TextField from '../../components/Textfield.styled'
 import { DialogButtonContainer } from './AddWordDialog.styled'
 import { wordApi } from '../../api'
 import { useToast } from '../../components/Toast'
+import { IWord } from '../../types/IWord'
 
 interface AddWordDialogProps {
     show: boolean,
-    onClose: () => void
+    onClose: () => void,
+    word?: IWord 
 }
 
 const AddWordDialog:React.FC<AddWordDialogProps> = ({
     show,
-    onClose
+    onClose,
+    word
 }) => {
 
-    const [newWord, setNewWord] = useState("")
+    const [newWord, setNewWord] = useState(word ? word.word : "")
 
     const showToast = useToast()
 
@@ -38,21 +41,48 @@ const AddWordDialog:React.FC<AddWordDialogProps> = ({
         }
     )
 
+    const {
+        error: updateError,
+        isLoading: updateIsLoading,
+        mutate: updateWord
+    } = useMutation(
+        wordApi.editWord,
+        {
+            onSuccess: (data) => {
+                setNewWord("")
+                showToast({
+                    type: "success",
+                    message: `${data.data.word} updated`
+                })
+                onClose()
+            }
+        }
+    )
+
     useEffect(() => {
-        if(error){
+        if(error || updateError){
+            const err = error || updateError
             showToast({
                 type: 'error',
                 //@ts-ignore
-                message: error.message
+                message: err.response.data.error || err.message
             })
         }
-    }, [error])
+    }, [error, updateError])
 
     const handleFormSubmit = ( event: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
         event.preventDefault()
-        wordMutate({
-            word: newWord
-        })
+        if(word){
+            updateWord({
+                _id: word._id,
+                word: newWord,
+                author: word.author
+            })
+        }else{
+            wordMutate({
+                word: newWord
+            })
+        }
     }
 
     const handlenewWordOnChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
@@ -63,7 +93,7 @@ const AddWordDialog:React.FC<AddWordDialogProps> = ({
         <Dialog
             show={show}
             onClose={onClose}
-            title="Add a new word to the word list"
+            title={word ? "Update the word" : "Add a new word"}
         >
             <form>
                 <TextField 
@@ -73,21 +103,22 @@ const AddWordDialog:React.FC<AddWordDialogProps> = ({
                     placeholder='Type here ...'
                     value={newWord}
                     onChange={handlenewWordOnChange}
+                    autoFocus
                 />
                 <DialogButtonContainer>
                     <Button
                         type='submit'
                         onClick={ handleFormSubmit }
-                        disabled={isLoading}
+                        disabled={isLoading || updateIsLoading}
                     >
-                        Add
+                        {word ? "Update" : "Add"}
                     </Button>
                     <Button
                         type='button'
                         endButton={true}
                         btnStyle="letter"
                         onClick={onClose}
-                        disabled={isLoading}
+                        disabled={isLoading || updateIsLoading}
                     >
                         Cancel
                     </Button>

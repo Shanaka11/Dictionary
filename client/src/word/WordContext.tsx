@@ -34,6 +34,7 @@ type DialogState = 'ADD' | 'REMOVE' | 'UPDATE' | 'LIST' | 'NONE'
 export const WordProvider:React.FC<WordProviderProps> = ({ children }) => {
 
     const [dialogState, setDialogState] = useState<DialogState>('NONE')
+    const [word, setWord] = useState<IWord | null>(null)
     const refetch = useRef<any>(null)
 
     const setRefetchMethod = (refetchMethod:any) => {
@@ -45,7 +46,8 @@ export const WordProvider:React.FC<WordProviderProps> = ({ children }) => {
     }
 
     const modifyWord = (word: IWord) => {
-
+        setDialogState('UPDATE')
+        setWord(word)
     }
 
     const deleteWord = (word: IWord) => {
@@ -58,11 +60,11 @@ export const WordProvider:React.FC<WordProviderProps> = ({ children }) => {
 
     const handleDialogOnClose = () => {
         if(dialogState != 'LIST'){
-            // do a refetch
             if(refetch.current){
                 refetch.current()
             }
         }
+        setWord(null)
         setDialogState('NONE')
     }
 
@@ -79,6 +81,7 @@ export const WordProvider:React.FC<WordProviderProps> = ({ children }) => {
             {/* Add Dialog */}
             <AddWordDialog show={dialogState === 'ADD'} onClose={handleDialogOnClose}/>
             {/* Modify Dialog */}
+            {word && <AddWordDialog show={dialogState === 'UPDATE'} word={word} onClose={handleDialogOnClose} />}
             {/* Delete Dialog */}
             {/* Add to list Dialog */}
             { children }
@@ -87,10 +90,12 @@ export const WordProvider:React.FC<WordProviderProps> = ({ children }) => {
 }
 
 // Pass the refetch method here
-export const useWord = (refetch: any) => {
+export const useWord = (refetch?: any) => {
     const context = useContext(WordContext)
     const { setRefetchMethod } = context
-    setRefetchMethod(refetch)
+    if(refetch){
+        setRefetchMethod(refetch)
+    }
     return context
 
 }

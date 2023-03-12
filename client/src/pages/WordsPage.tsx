@@ -39,11 +39,6 @@ const WordsPage = (props: Props) => {
         }
     }, [error])
 
-    const handleAddWordOnClose = () => {
-        // setAddWord(false)
-        refetch()
-    }
-
     return (
         <ContainerBase>
             <Container>

@@ -4,6 +4,7 @@ import express from 'express'
 import router from './routes'
 import cors from 'cors'
 import * as dotenv from "dotenv";
+import helmet from 'helmet'
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json())
 app.use(cors({
     origin: 'http://localhost:5173'
 }))
+app.use(helmet())
 
 // app.get('/', (req, res) => {
 //     res.sendStatus(200)

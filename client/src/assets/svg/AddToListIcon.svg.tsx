@@ -10,9 +10,9 @@ const AddToListIcon = () => {
             xmlns="http://www.w3.org/2000/svg" 
             aria-labelledby="addToListIconTitle" 
             stroke="white" 
-            stroke-width="1.5" 
-            stroke-linecap="square" 
-            stroke-linejoin="miter" 
+            strokeWidth="1.5" 
+            strokeLinecap="square" 
+            strokeLinejoin="miter" 
             color="white"
         > 
             <title id="addToListIconTitle">Add To List</title>
