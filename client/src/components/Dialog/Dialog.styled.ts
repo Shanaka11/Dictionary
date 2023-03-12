@@ -37,6 +37,10 @@ export const DialogContent = styled.div({
     display: 'flex',
     flexDirection: 'column',
 
+    'p' : {
+        margin: measurements.marginBase
+    },
+
     '@media only screen and (max-width: 800px)' : {
         width: '100%',
         paddingLeft: measurements.marginBase,

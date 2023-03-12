@@ -8,6 +8,7 @@
 import { createContext, useContext, useRef, useState } from "react";
 import { IWord } from "../types/IWord";
 import AddWordDialog from "./AddWord/AddWordDialog";
+import DeleteWordDialog from "./DeleteWord/DeleteWordDialog";
 
 interface WordContextProps {
     addWord: () => void,
@@ -51,7 +52,8 @@ export const WordProvider:React.FC<WordProviderProps> = ({ children }) => {
     }
 
     const deleteWord = (word: IWord) => {
-
+        setDialogState('REMOVE')
+        setWord(word)
     }
 
     const addWordToList = (word: IWord) => {
@@ -83,6 +85,7 @@ export const WordProvider:React.FC<WordProviderProps> = ({ children }) => {
             {/* Modify Dialog */}
             {word && <AddWordDialog show={dialogState === 'UPDATE'} word={word} onClose={handleDialogOnClose} />}
             {/* Delete Dialog */}
+            {word && <DeleteWordDialog show={dialogState === 'REMOVE'} word={word} onClose={handleDialogOnClose} />}
             {/* Add to list Dialog */}
             { children }
         </WordContext.Provider>

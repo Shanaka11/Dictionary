@@ -18,7 +18,8 @@ const TableCellAction:React.FC<TableCellProps> = ({
 }) => {
 
   const {
-    modifyWord
+    modifyWord,
+    deleteWord
   } = useWord()
 
   const handleCellOnClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -36,6 +37,7 @@ const TableCellAction:React.FC<TableCellProps> = ({
 
   const handleDeleteButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation() 
+    deleteWord(word)
   }
 
   return (
