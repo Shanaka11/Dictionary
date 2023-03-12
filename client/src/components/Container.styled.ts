@@ -3,7 +3,7 @@ import { breakpoints, measurements } from "../style";
 
 
 const Container = styled.div({
-    width: measurements.lengthLg,
+    width: measurements.containerMainWidth,
     display: 'grid',
 
     '@media only screen and (max-width: 800px)' : {
@@ -18,4 +18,11 @@ export const ContainerBase = styled.div({
     display: "flex",
     justifyContent: 'center'
 })
+
+export const ActionContainer = styled.div({
+    display: 'flex',
+    width: '100%',
+    marginBottom: measurements.marginBase * 2
+})
+
 export default Container

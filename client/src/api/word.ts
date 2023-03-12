@@ -11,7 +11,25 @@ const addWords = async (data:IWord) => {
         data
     )
 }
+
+const editWord = async (data:IWord) => {
+    return api.put<IWord>(
+        `word`,
+        data
+    )
+}
+
+const deleteWord = async (data:IWord) => {
+    return api.delete(
+        `word`,
+        //@ts-ignore
+        {data : data}
+    )
+}
+
 export default {
     getWords,
-    addWords
+    addWords,
+    editWord,
+    deleteWord
 }

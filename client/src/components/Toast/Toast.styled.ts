@@ -36,6 +36,7 @@ export const ToastContainer = styled.div<ToastContainerProps>({
     },
 
     "p": {
+        textTransform: 'capitalize',
         marginTop: measurements.marginBase * 2
     },
 

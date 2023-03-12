@@ -6,7 +6,7 @@ import { validateToken } from "../auth"
 
 const router = express.Router()
 
-router.use('/word', wordRouter)
+router.use('/word', validateToken, wordRouter)
 // router.use('/user', userRouter)
 
 export default router

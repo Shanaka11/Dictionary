@@ -11,7 +11,14 @@ export const Overlay = styled.div({
     height: '100vh',
     width: '100vw',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    animation : 'fade-in 200ms ease-in-out forwards',
+
+    '@keyframes fade-in' : {
+        '0%' : {
+          opacity: 0,
+        }
+      }
 })
 
 export const DialogContainer = styled.div<{ open?:boolean }>({
@@ -21,17 +28,19 @@ export const DialogContainer = styled.div<{ open?:boolean }>({
     height: 'fit-content',
     padding: measurements.marginBase * 2,
     position: 'absolute',
-    top: '-100%',
-    transition: 'top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94)'
-},
-({ open }) => {
-    if (open) return { top: 0 }
+    '@media only screen and (max-width: 800px)' : {
+        width: '90%'
+    }
 })
 
 export const DialogContent = styled.div({
     width: measurements.lengthLg,
     display: 'flex',
     flexDirection: 'column',
+
+    'p' : {
+        margin: measurements.marginBase
+    },
 
     '@media only screen and (max-width: 800px)' : {
         width: '100%',

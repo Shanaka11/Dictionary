@@ -5,7 +5,9 @@ import { colors, measurements } from "../style";
 
 const ButtonBase = styled.button<{
     endButton?: boolean,
-    btnStyle?: 'filled' | 'letter'
+    btnStyle?: 'filled' | 'letter',
+    margin?: boolean,
+    disabled?: boolean
 }>({
     padding: measurements.marginBase * 2,
     minWidth: 80,
@@ -34,6 +36,15 @@ const ButtonBase = styled.button<{
         '&:hover, &:active' : {
             backgroundColor: colors.primaryLight
         }
+    }
+}, ({ margin }) => {
+    if( margin )return {
+        marginLeft: measurements.marginBase * 2
+    }
+}, ({ disabled }) => {
+    if (disabled) return { 
+        backgroundColor: colors.disabled,
+        color: colors.textPrimary
     }
 })
 

@@ -10,7 +10,7 @@ const createWordController = async (
     res:Response
 ) => {
     try {
-        const word = await wordUseCases.add(req.body)   
+        const word = await wordUseCases.add(req.body, req.userId)   
         res.status(201).send(word)
     } catch (error:any) {
         res.status(500).send(errorResponse(error))
@@ -34,7 +34,7 @@ const updateWordController = async (
     res:Response
 ) => {
     try {
-        const word = await wordUseCases.update(req.body)   
+        const word = await wordUseCases.update(req.body, req.userId)   
         res.status(200).send(word)
     } catch (error) {
         res.status(500).send(errorResponse(error))
@@ -46,7 +46,7 @@ const deleteWordController = async (
     res:Response
 ) => {
     try {
-        const word = await wordUseCases.remove(req.body)   
+        const word = await wordUseCases.remove(req.body, req.userId)   
         res.status(202).send(word)
     } catch (error) {
         res.status(500).send(errorResponse(error))

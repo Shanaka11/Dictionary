@@ -10,14 +10,17 @@ import mongoose from "mongoose";
 export interface IWord {
     _id: string
     word: string
+    author: string
 }
 
 interface WordDocument extends mongoose.Document {
     word: string
+    author: string
 }
 
 const wordSchema = new mongoose.Schema<WordDocument>({
-    word: String
+    word: String,
+    author: String
 })
 
 const Word = mongoose.model<WordDocument>(`Word`, wordSchema)
